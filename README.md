@@ -8,9 +8,11 @@ Fuente de verdad de mis skills de Claude Code. Cada carpeta de primer nivel es u
 ```
 claude-skills/
   soporte-capsa/
-    SKILL.md                      # skill de contexto del cliente Grupo Capsa
-    incidente-401-ws-seguridad.md # conocimiento técnico referenciado por el skill
-  deploy.ps1                      # copia los skills del repo a ~/.claude/skills
+    SKILL.md                       # skill de contexto del cliente Grupo Capsa
+    incidente-401-ws-seguridad.md  # conocimiento técnico referenciado por el skill
+    paradas-y-cierres-diarios.md   # paradas de pozos vs cierres diarios (SGO legacy)
+    proyecto-csa.md                # contexto técnico del proyecto Consola de Seguridad Web
+  deploy.ps1                       # copia los skills del repo a ~/.claude/skills
   README.md
 ```
 
