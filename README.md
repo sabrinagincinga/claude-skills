@@ -12,6 +12,9 @@ claude-skills/
     incidente-401-ws-seguridad.md  # conocimiento técnico referenciado por el skill
     paradas-y-cierres-diarios.md   # paradas de pozos vs cierres diarios (SGO legacy)
     proyecto-csa.md                # contexto técnico del proyecto Consola de Seguridad Web
+    ef6-migraciones-snapshot.md    # error AutomaticMigrationsDisabledException de EF6
+    herramientas/
+      generar-migracion-ef6/       # tool para generar migraciones EF6 sin la PMC
   deploy.ps1                       # copia los skills del repo a ~/.claude/skills
   README.md
 ```

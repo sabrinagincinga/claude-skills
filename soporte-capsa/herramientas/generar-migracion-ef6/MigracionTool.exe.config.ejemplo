@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copiar como  MigracionTool.exe.config  al lado del .exe (en el bin del DAL).
+  Ajustar Data Source / Initial Catalog a una base alcanzable.
+  Para el diff normal, esa base debe estar SINCRONIZADA con todas las migraciones.
+-->
+<configuration>
+  <configSections>
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <connectionStrings>
+    <add name="CapsaOyGContext" connectionString="Data Source=SERVIDOR\INSTANCIA;Initial Catalog=BaseSincronizada;Integrated Security=SSPI;MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework" />
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+</configuration>

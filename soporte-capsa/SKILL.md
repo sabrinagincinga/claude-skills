@@ -85,6 +85,26 @@ Antes de arrancar cada semana con los evolutivos planificados:
 
 Esto permite que los tickets queden visibles en las queries y reportes de soporte del módulo correspondiente, manteniendo el vínculo con el ticket original de migración.
 
+### Reglas de conteo del tablero de evolutivos (hoja "Estado Actual")
+
+El seguimiento se alimenta del export CSV de Azure DevOps (hoja "Datos Tickets CSV",
+que además del ID/Area/State/Title necesita las columnas Work Item Type, Assigned To y Tags).
+El módulo sale del Area Path ("...\ModuloXX") o, si el ticket ya se pasó a un Area de
+soporte, del título ("Modulo XX"). Métricas:
+
+- **ToDo Dev** = tickets en estado New o To Do.
+- **In Progress** = tickets en estado In Progress o Code Review (un PR abierto sigue
+  contando como In Progress hasta que se mergea).
+- **Terminados Dev** = tickets en Committed, Testing o Done (independiente del tipo y la asignación).
+- **TC en prog.** = ticket tipo PBI, en estado Committed y asignado a la Natalia *externa*
+  (Externo Natalia Parrello / ext_natalia.parrello@grupocapsa.com.ar) — NO la interna de Enta.
+- **TC Hechos** = ticket con la tag `TC_LISTO` o en estado Done (contar sin duplicar los que son ambas cosas).
+- **Ejec. en prog.** = ticket tipo PBI, en estado Testing.
+- **Done QA** = ticket en estado Done.
+
+Nota: para diferenciar el trabajo de QA se usará una tag (`TC_LISTO` para TC hechos);
+otras tags de QA que aparecen en el tablero: ACTUALIZADO TC, IMPLEMENTADO EN TC, NO REQ. ACT. TC, TRIAGE.
+
 ### WIP y Code Review (aplica al equipo en general)
 - Los tickets en **Code Review cuentan dentro del WIP** del desarrollador — el ticket no está terminado hasta que se mergea.
 - El **dueño del PR** es el responsable de hacer avanzar el Code Review: pingar al revisor, hacer follow-up. No hay un WIP limit separado para Code Review porque el mecanismo de control ya existe orgánicamente con el dueño del PR.
@@ -151,6 +171,8 @@ Sabrina escribe en un tono **directo, cercano y organizado** — profesional per
 - **[incidente-401-ws-seguridad.md](incidente-401-ws-seguridad.md)** — Modelo de seguridad SGP ↔ WS de Seguridad (cookie con permisos/dimensiones cacheados en login vs token delegado al WS en runtime) y el incidente de jun 2026: 401 en HTML = página de IIS (infra), no de la app. **RESUELTO** por Infra (faltaba la IP de NATeo del enlace nuevo en el allow list del web site de la consola de seguridad; aleatorio por balanceo SD-WAN). Incluye tabla de cómo distinguir un 401 de la app vs de IIS, el ticket Jira `SCA-30827`, y la mejora pendiente en SGP (manejar el fallo del WS para no devolver 500 opaco). Leer antes de tocar temas de permisos/seguridad de SGP.
 
 - **[paradas-y-cierres-diarios.md](paradas-y-cierres-diarios.md)** — Injerencia de las **paradas** de pozos en los **cierres diarios** del SGO legacy. Qué cierres **bloquean** la edición de una parada: **solo Petróleo, Agua y Gas** (Provisorio o Definitivo); las plantas y LPG **no** bloquean. El cierre toma un **snapshot** de las paradas (horas de marcha → pérdidas localizadas → prorrateo): editar una parada no recalcula un día ya cerrado hasta re-cerrarlo. Injerencia entre días: una **parada Programada multi-día** sí afecta días posteriores, y en áreas **que prorratean** el re-cierre del día editado **no** autocorrige los días posteriores cerrados (hay que reabrirlos/re-cerrarlos a mano). Leer antes de responder consultas operativas sobre apertura de cierres para editar paradas o inconsistencias entre días.
+
+- **[ef6-migraciones-snapshot.md](ef6-migraciones-snapshot.md)** — El error `AutomaticMigrationsDisabledException` de EF6 ("pending changes... automatic migration is disabled"): a qué se debe (snapshot del modelo de la **última migración por Id** desincronizado con el modelo compilado, típico tras nivelaciones/merges), la diferencia entre el **initializer** `MigrateDatabaseToLatestVersion` (lo que aplica migraciones al levantar) y `AutomaticMigrationsEnabled` (migraciones sin archivo), y cómo se resuelve: una nueva migración code-based que refresque el snapshot — **vacía** si el diff son cambios que la base ya tiene (metadata stale), o con el diff si es esquema real (siempre verificar contra la base). Incluye cómo **correr una migración EF6 sin VS2019** (no hay `dotnet ef`; se usa `MigrationScaffolder` por código — ver la herramienta [`herramientas/generar-migracion-ef6/`](herramientas/generar-migracion-ef6/)). Leer antes de tocar migraciones EF6 / diagnosticar ese error.
 
 ---
 
