@@ -128,6 +128,16 @@ testing → release trunk → master
 ```
 En este punto se hace una pasada completa de pruebas por el proyecto y finalmente **se pisa develop con la nueva rama master** (ya probada), llevando todo el desarrollo de la migración a master.
 
+### Acceso a las bases de datos del SGO
+
+Las cadenas de conexión están en `Capsa.OyG.Web/appsettings.Local.json` (archivo local, gitignoreado por `**/*.local.json`). Apuntan a las bases de **ambientes de prueba** — hoy `dasgo02.grupocapsa.net` y `acsgo02.grupocapsa.net`, ambas con catálogo `CapsaOYG3`.
+
+**Regla:**
+- **Consultas de sólo lectura (`SELECT`): se pueden ejecutar sin pedir confirmación.** Son ambientes de prueba y el relevamiento de datos es parte normal del trabajo.
+- **Cualquier query que no sea de sólo lectura se confirma antes de ejecutarla.** Esto incluye `INSERT`, `UPDATE`, `DELETE`, `MERGE`, DDL (`CREATE`/`ALTER`/`DROP`), `EXEC` de stored procedures que escriban, y correr migraciones contra la base. Mostrar el SQL exacto y esperar el OK.
+
+Antes de asumir que un dato es igual en todas las bases, **relevarlo**: los Ids de las tablas de configuración los asigna SQL Server al insertar y difieren entre bases. Un caso real: los `SistemasExtraccionDynamicFields` de BME/ECS comparten sólo 4 Ids entre `dasgo02` y `acsgo02`, y algunos campos existen en una base y no en la otra. Ver [ef6-migraciones-snapshot.md](ef6-migraciones-snapshot.md) para el tema migraciones.
+
 ---
 
 ## 4. Estilo de comunicación
