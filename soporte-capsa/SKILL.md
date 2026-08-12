@@ -189,3 +189,9 @@ Sabrina escribe en un tono **directo, cercano y organizado** — profesional per
 ## 6. Proyecto Consola de Seguridad Web (CSA)
 
 - **[proyecto-csa.md](proyecto-csa.md)** — Contexto técnico del proyecto **CSA** (repo `grupocapsa/ConsolaSeguridadWeb`), la app de administración de seguridad de Capsa (usuarios, roles, permisos, dimensiones, aplicaciones, entornos) y contracara administrativa del **WS de Seguridad** que consume SGP (ver [incidente-401-ws-seguridad.md](incidente-401-ws-seguridad.md)). Monorepo: **backend .NET 7** (`Security-console-server`, OData + `GenericCrudController<T>`, Repository/UoW, EF Core Identity, autorización por atributos de permisos, WS de Seguridad como proyecto `SecurityApi` aparte) + **frontend React 18 + Vite** (`security-console-client`, MSAL/Azure AD, Redux Toolkit, KendoReact con licencia, capa REST `entaFetch` sobre OData, patrón Composite/Container/Form). Leer antes de tocar código o tickets de CSA.
+
+---
+
+## 7. Informe mensual de horas (para el cliente)
+
+- **[informe-mensual.md](informe-mensual.md)** — Cómo armar el **informe mensual de seguimiento** (Seguimiento ENTA → Capsa): un PDF de 6 páginas dirigido al cliente y al equipo, con el esfuerzo del mes y el acumulado del ejercicio. Incluye qué **capturas del dashboard** hacen falta y qué aporta cada widget, la **estructura** de las 6 páginas, los **datos fijos** (planificado 480 h/mes Soporte y 160 h/mes Power Platform, ejercicio mayo–abril, fuente del dashboard), las **fórmulas** de saldo mensual/acumulado, las reglas de **continuidad** mes a mes, las **inconsistencias a verificar** antes de publicar (pivot vs tipo de ticket, saltos en realizados, área SGO pelada) y el **histórico del ejercicio 2026/2027** para arrastrar los saldos. Leer antes de armar el informe de un mes nuevo.
