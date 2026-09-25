@@ -128,6 +128,10 @@ testing → release trunk → master
 ```
 En este punto se hace una pasada completa de pruebas por el proyecto y finalmente **se pisa develop con la nueva rama master** (ya probada), llevando todo el desarrollo de la migración a master.
 
+### Compilar el front (SGOReact)
+
+Para instalar dependencias y compilar todos los módulos del front: [`herramientas/build-front/build-all.ps1`](herramientas/build-front/build-all.ps1). Se copia a la raíz de SGOReact y se corre desde ahí. Para llevar los builds al repo back está `copiar-dist.ps1`, en la misma carpeta, pero **escribe en el repo back**: solo con su OK y solo si `build-all` terminó sin fallidos. Detalle en el [README](herramientas/build-front/README.md).
+
 ### Acceso a las bases de datos del SGO
 
 Las cadenas de conexión están en `Capsa.OyG.Web/appsettings.Local.json` (archivo local, gitignoreado por `**/*.local.json`). Apuntan a las bases de **ambientes de prueba** — hoy `dasgo02.grupocapsa.net` y `acsgo02.grupocapsa.net`, ambas con catálogo `CapsaOYG3`.
